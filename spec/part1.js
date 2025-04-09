@@ -570,7 +570,7 @@
   
         it('should use recursion by calling self', function () {
           var originalCompareStr = compareStr;
-          compareStr = sinon.spy(compareStr);
+          compareStr = sinon.spy(compareStr);          
           compareStr('house', 'houses');
           expect(compareStr.callCount).to.be.above(1);
           compareStr = originalCompareStr;

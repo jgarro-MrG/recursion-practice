@@ -138,7 +138,17 @@ var reverse = function(string, output="") {
 };
 
 // 10. Write a function that determines if a string is a palindrome.
-var palindrome = function(string) {
+var palindrome = function(string, result=true) {
+  string = string.toLowerCase();
+  // base 
+  if (string.length <= 3) {
+    return result;
+  }  
+  // recursion
+  result = result && (string[0] === string[string.length - 1]);
+  //console.log(`${string} : ${string[0]} === ${string[string.length - 1]} : ${result}`);
+  const subString = string.substring(1,string.length - 1)
+  return palindrome(subString, result)
 };
 
 // 11. Write a function that returns the remainder of x divided by y without using the
@@ -153,12 +163,26 @@ var modulo = function(x, y) {
 // 12. Write a function that multiplies two numbers without using the * operator  or
 // JavaScript's Math object.
 // ATTENTION DO NOT LEAVE COMMENTS IN THIS FUNCTION. The test is looking for any ('/').
-var multiply = function(x, y) {
+var multiply = function(x, y, result = 0) {
+
+  if (x === 0 || y === 0) {
+    return result;
+  }  
+
+  if ( y > 0) { 
+      result += x
+      return multiply(x, y - 1, result);
+    } else if ( y < 0) {    
+      result -= x
+      return multiply(x, y + 1, result);
+  } 
+
 };
 
 // 13. Write a function that divides two numbers without using the / operator  or
 // JavaScript's Math object.
 var divide = function(x, y) {
+
 };
 
 // 14. Find the greatest common divisor (gcd) of two positive numbers.  The GCD of two
@@ -175,7 +199,14 @@ var gcd = function(x, y) {
 // compareStr('house', 'houses') // false
 // compareStr('', '') // true
 // compareStr('tomato', 'tomato') // true
-var compareStr = function(str1, str2) {
+var compareStr = function(str1, str2, result=(str1.length === str2.length)) {
+  // base 
+  if (str1.length === 0 || str2.length === 0) {
+    return result;
+  }  
+  // recursion
+  result = result && ( str1[0] === str2[0]); 
+  return compareStr( str1.substring(1), str2.substring(1), result)
 };
 
 // 16. Write a function that accepts a string and creates an array where each letter
