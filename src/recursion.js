@@ -211,31 +211,56 @@ var compareStr = function(str1, str2, result=(str1.length === str2.length)) {
 
 // 16. Write a function that accepts a string and creates an array where each letter
 // occupies an index of the array.
-var createArray = function(str){
+var createArray = function(str, output=[]){
+  if (str.length === 0) {
+    return output;
+  }
+  output.push(str[0]);
+  return createArray(str.slice(1), output)
 };
 
 // 17. Reverse the order of an array
-var reverseArr = function (array) {
+var reverseArr = function (array, output=[]) {
+  if (array.length === 0) {
+    return output;
+  }
+  output.push(array.pop());
+  return reverseArr(array, output);
 };
 
 // 18. Create a new array with a given value and length.
 // buildList(0,5) // [0,0,0,0,0]
 // buildList(7,3) // [7,7,7]
-var buildList = function(value, length) {
+var buildList = function(value, length, output=[]) {
+  if (length === 0) {
+    return output;
+  }
+  output.push(value)
+  return buildList(value, length -1, output);
 };
 
 // 19. Count the occurence of a value inside a list.
 // countOccurrence([2,7,4,4,1,4], 4) // 3
 // countOccurrence([2,'banana',4,4,1,'banana'], 'banana') // 2
-var countOccurrence = function(array, value) {
+var countOccurrence = function(array, value, output=0) {
+  if (array.length === 0) {
+    return output;
+  }
+  if (array[0] === value) {
+    output++;
+  }
+  return countOccurrence(array.slice(1), value, output)
 };
 
 // 20. Write a recursive version of map.
 // rMap([1,2,3], timesTwo); // [2,4,6]
 var rMap = function(array, callback, output=[]) {
-  
+  if (array.length === 0) {
+    return output;
+  }  
+  output.push(callback(array[0]));
+  return rMap(array.slice(1), callback, output);
 };
-
 // 21. Write a function that counts the number of times a key occurs in an object.
 // var testobj = {'e': {'x':'y'}, 't':{'r': {'e':'r'}, 'p': {'y':'r'}},'y':'e'};
 // countKeysInObj(testobj, 'r') // 1
@@ -260,7 +285,15 @@ var replaceKeysInObj = function(obj, key, newKey) {
 // Example:  0, 1, 1, 2, 3, 5, 8, 13, 21, 34.....
 // fibonacci(5);  // [0, 1, 1, 2, 3, 5]
 // Note:  The 0 is not counted.
-var fibonacci = function(n) {
+var fibonacci = function(n, output=[0, 1]) {
+  if (n <= 0) {
+    return null;
+  }  
+  if (n === 1) {
+    return output;
+  }
+  output.push(output[output.length - 2] + output[output.length - 1]);
+  return fibonacci(n - 1, output)
 };
 
 // 25. Return the Fibonacci number located at index n of the Fibonacci sequence.
@@ -268,7 +301,18 @@ var fibonacci = function(n) {
 // nthFibo(5); // 5
 // nthFibo(7); // 13
 // nthFibo(3); // 2
-var nthFibo = function(n) {
+var nthFibo = function(n, output=[0, 1]) {
+  if (n < 0) {
+    return null;
+  }
+    
+  if (n === 0) { 
+    return output[n];
+  } else if (n === 1) {
+    return output[output.length - 1];
+  }
+  output.push(output[output.length - 2] + output[output.length - 1]);
+  return nthFibo(n - 1, output)
 };
 
 // 26. Given an array of words, return a new array containing each word capitalized.

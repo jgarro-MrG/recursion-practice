@@ -850,7 +850,7 @@
       });
   
   
-      xdescribe('24. First n Fibonacci', function() {
+      describe('24. First n Fibonacci', function() {
   
         it('should return an array', function() {
           expect(Array.isArray(fibonacci(5))).to.equal(true);
